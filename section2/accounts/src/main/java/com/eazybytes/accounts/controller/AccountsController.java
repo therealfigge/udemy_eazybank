@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(
@@ -70,7 +71,11 @@ public class AccountsController {
 
     @GetMapping("/fetchall")
     public ResponseEntity<List<CustomerDto>> fetchAllAccounts() {
+        List<CustomerDto> customerDtos = new ArrayList<>();
 
+        customerDtos = iAccountsService.fetchAllAccounts();
+
+        return ResponseEntity.status(HttpStatus.OK).body(customerDtos);
     }
 
     @Operation(

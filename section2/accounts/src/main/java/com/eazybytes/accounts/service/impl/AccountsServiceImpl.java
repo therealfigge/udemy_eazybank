@@ -86,13 +86,24 @@ public class AccountsServiceImpl implements IAccountsService {
      */
     @Override
     public List<CustomerDto> fetchAllAccounts() {
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        CustomerDto customerDto;
+        Accounts accounts;
         List<Customer> customers = new ArrayList<>();
         customers = customerRepository.findAll();
 
         if (customers.isEmpty()) {
             return null;
         } else {
-            return null;
+            for (Customer customer : customers) {
+                accounts = accountsRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                        () -> new ResourceNotFoundException("Account", "customerId", customer.getCustomerId().toString())
+                );
+                customerDto = CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
+                customerDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
+                customerDtos.add(customerDto);
+            }
+            return customerDtos;
         }
     }
 
