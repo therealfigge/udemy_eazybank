@@ -14,14 +14,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Tag(
         name = "CRUD REST APIs for Accounts in Eazybank",
@@ -34,6 +33,10 @@ import java.util.List;
 public class AccountsController {
 
     private IAccountsService iAccountsService;
+
+
+    @Value("${build.version}")
+    private String buildVersion;
 
     @Operation(
             summary = "Create account REST API",
@@ -69,18 +72,11 @@ public class AccountsController {
         return ResponseEntity.status(HttpStatus.OK).body(customerDto);
     }
 
+    /*
     @GetMapping("/fetchall")
-    public ResponseEntity<List<CustomerDto>> fetchAllAccounts() {
-        List<CustomerDto> customerDtos = new ArrayList<>();
-
-        customerDtos = iAccountsService.fetchAllAccounts();
-
-        if(customerDtos!=null) {
-            return ResponseEntity.status(HttpStatus.OK).body(customerDtos);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
+    public ResponseEntity<List<CustomerDTO>> fetchAllAccounts() {
     }
+     */
 
     @Operation(
             summary = "Update account REST API",
@@ -151,5 +147,26 @@ public class AccountsController {
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ResponseDto(AccountsConstants.STATUS_500, AccountsConstants.MESSAGE_500));
         }
+    }
+
+    @Operation(
+            summary = "Read account REST API",
+            description = "REST API to read Customer and Account inside Eazybank"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status INTERNAL_SERVER_ERROR"
+            )
+    })
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(buildVersion);
     }
 }
