@@ -66,6 +66,12 @@ public class AccountsController {
         return ResponseEntity.status(HttpStatus.OK).body(customerDto);
     }
 
+    /*
+    @GetMapping("/fetchall")
+    public ResponseEntity<List<CustomerDTO>> fetchAllAccounts() {
+    }
+     */
+
     @Operation(
             summary = "Update account REST API",
             description = "REST API to update Customer and Account inside Eazybank"
