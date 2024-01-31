@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to EazyBank accounts"
+  contactDetails:
+    name: "John Smith - Customer Service"
+    email: "johns@eazybank.com"
+  onCallSupport:
+    - (777)777-1234
+    - (777)723-1345
