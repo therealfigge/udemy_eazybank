@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version: "2.0"
+
+loans:
+  message: "Welcome to EazyBank loans"
+  contactDetails:
+    name: "John Tester - QA lead"
+    email: "johnT@eazybank.com"
+  onCallSupport:
+    - (666)666-1234
+    - (666)623-1345
