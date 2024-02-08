@@ -6,8 +6,8 @@ spring:
 build:
   version: "1.0"
 
-cards:
-  message: "Welcome to EazyBank cards"
+loans:
+  message: "Welcome to EazyBank loans"
   contactDetails:
     name: "John PO - Product Owner"
     email: "johnP@eazybank.com"
